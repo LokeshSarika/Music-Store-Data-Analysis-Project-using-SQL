@@ -28,6 +28,10 @@ Through this project, I honed my skills in data manipulation, interpretation, de
 - It includes comprehensive data on sales transactions, customer interactions, and inventory management.
 
 
+## Music store Database Schema:
+![MusicDatabaseSchema](https://github.com/user-attachments/assets/ae6b52ef-7b42-42b9-a9f2-262c157274e4)
+
+
 ## Music store query:
 ### Q1: Who is the senior most employee based on job title?
            select first_name, last_name
