@@ -137,8 +137,6 @@ Through this project, I honed my skills in data manipulation, interpretation, de
            ORDER BY 5 DESC;
 ### Result:
 ![image](https://github.com/user-attachments/assets/0216e1d5-1396-4a37-a7e1-02b937b4f603)
-![image](https://github.com/user-attachments/assets/63de5c91-be63-4145-9fa9-7cf42d6b961b)
-
 
 ### Q10: We want to find out the most popular music Genre for each country. We determine the most popular genre as the genre with the highest amount of purchases. Write a query that returns each country along with the top Genre. For countries where the maximum number of purchases is shared return all Genres.
            with popular_genre as (
