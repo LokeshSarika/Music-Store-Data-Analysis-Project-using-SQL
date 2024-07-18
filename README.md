@@ -40,8 +40,7 @@ Through this project, I honed my skills in data manipulation, interpretation, de
            limit 1;
 ### Result:
 ![image](https://github.com/user-attachments/assets/718c18c4-7222-435e-890c-c45641cbf28e)
-	   
-	   
+	   	   
 ### Q2: Which countries have the most Invoices?
            select billing_country, count(invoice_id) as count
            from invoice
@@ -52,24 +51,24 @@ Through this project, I honed my skills in data manipulation, interpretation, de
 ![image](https://github.com/user-attachments/assets/ca67ea45-0a9c-4cf5-814a-f205bdf887e0)
 
 ### Q3: What are top 3 values of total invoice?
-           select total
+           select total as 'total invoice'
            from invoice
            order by total desc
            limit 3;
 ### Result:
-![image](https://github.com/user-attachments/assets/2afd585d-1002-4043-a794-204a1364f2a5)
-	   
+![image](https://github.com/user-attachments/assets/d96fc968-413a-4426-b43f-c16770d29787)
+
 ### Q4: Which city has the best customers? We would like to throw a promotional Music Festival in the city we made the most money.Write a query that returns one city that has the highest sum of invoice totals. Return both the city name & sum of all invoice totals.
-           select billing_city, sum(total) as Invoice_totals
+           select billing_city as 'City name', sum(total) as Invoice_totals
            from invoice 
            group by billing_city
            order by Invoice_totals desc
            limit 1;
 ### Result:
-![image](https://github.com/user-attachments/assets/a313e23f-ce30-4ce8-ad91-6a3e5a63b791)
+![image](https://github.com/user-attachments/assets/26ce100a-dd81-4cf6-b7f9-27bf49b1c727)
 
 ### Q5: Who is the best customer? The customer who has spent the most money will be declared the best customer. Write a query that returns the person who has spent the most money.
-           select customer.*, sum(invoice.total) as Invoice_totals
+           select customer.customer_id, customer.first_name, customer.last_name, sum(invoice.total) as Invoice_totals
            from customer 
            join invoice 
            on customer.customer_id=invoice.customer_id
@@ -77,6 +76,7 @@ Through this project, I honed my skills in data manipulation, interpretation, de
            order by Invoice_totals desc
            limit 1;
 ### Result:
+![image](https://github.com/user-attachments/assets/f1d30f9e-509e-453e-8aa7-8544dd46f862)
 
 ### Q6: Write query to return the email, first name, last name, & Genre of all Rock Music listeners. Return your list ordered alphabetically by email starting with A.
            select customer.email, customer.first_name, customer.last_name, genre.name
@@ -90,6 +90,9 @@ Through this project, I honed my skills in data manipulation, interpretation, de
            order by customer.email 
            limit 10;
 ### Result:
+![image](https://github.com/user-attachments/assets/f59d5eb2-1f2c-468f-be36-70ebef03a34f)
+![image](https://github.com/user-attachments/assets/75b249ad-0b06-4497-9279-f6cf552c4864)
+![image](https://github.com/user-attachments/assets/03948307-8f17-4146-82f0-42f5b2dd7c36)
 
 ### Q7: Let's invite the artists who have written the most rock music in our dataset.Write a query that returns the Artist name and total track count of the top 10 rock bands.
            SELECT artist.artist_id, artist.name, count(artist.artist_id) as no_of_songs
@@ -101,16 +104,12 @@ Through this project, I honed my skills in data manipulation, interpretation, de
            group by artist.artist_id
            order by no_of_songs desc
            limit 10;
-### Result:
 
 ### Q8: Return all the track names that have a song length longer than the average song length. Return the Name and Milliseconds for each track. Order by the song length with the longest songs listed first.
            select name, milliseconds
            from track 
            where milliseconds > (select avg(milliseconds) from track)
            order by milliseconds desc;
-### Result:
-
-
 
 ### Q9: Find how much amount spent by each customer on artists? Write a query to return customer name, artist name and total spent
            WITH best_selling_artist AS (
