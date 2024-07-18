@@ -56,7 +56,7 @@ Through this project, I honed my skills in data manipulation, interpretation, de
            order by total desc
            limit 3;
 ### Result:
-![image](https://github.com/user-attachments/assets/d96fc968-413a-4426-b43f-c16770d29787)
+![image](https://github.com/user-attachments/assets/0b437393-3925-4d85-84e3-9188de65d175)
 
 ### Q4: Which city has the best customers? We would like to throw a promotional Music Festival in the city we made the most money.Write a query that returns one city that has the highest sum of invoice totals. Return both the city name & sum of all invoice totals.
            select billing_city as 'City name', sum(total) as Invoice_totals
@@ -65,7 +65,7 @@ Through this project, I honed my skills in data manipulation, interpretation, de
            order by Invoice_totals desc
            limit 1;
 ### Result:
-![image](https://github.com/user-attachments/assets/26ce100a-dd81-4cf6-b7f9-27bf49b1c727)
+![image](https://github.com/user-attachments/assets/f3b62fcc-3d74-4664-ba58-87fe74e3cabf)
 
 ### Q5: Who is the best customer? The customer who has spent the most money will be declared the best customer. Write a query that returns the person who has spent the most money.
            select customer.customer_id, customer.first_name, customer.last_name, sum(invoice.total) as Invoice_totals
@@ -76,7 +76,8 @@ Through this project, I honed my skills in data manipulation, interpretation, de
            order by Invoice_totals desc
            limit 1;
 ### Result:
-![image](https://github.com/user-attachments/assets/f1d30f9e-509e-453e-8aa7-8544dd46f862)
+![image](https://github.com/user-attachments/assets/a60d99f2-1584-4165-936a-e0efce19766e)
+
 
 ### Q6: Write query to return the email, first name, last name, & Genre of all Rock Music listeners. Return your list ordered alphabetically by email starting with A.
            select customer.email, customer.first_name, customer.last_name, genre.name
@@ -88,13 +89,11 @@ Through this project, I honed my skills in data manipulation, interpretation, de
            where genre.name='rock'
            group by customer.email
            order by customer.email 
-           limit 10;
+           ;
 ### Result:
 ![image](https://github.com/user-attachments/assets/f59d5eb2-1f2c-468f-be36-70ebef03a34f)
-![image](https://github.com/user-attachments/assets/75b249ad-0b06-4497-9279-f6cf552c4864)
-![image](https://github.com/user-attachments/assets/03948307-8f17-4146-82f0-42f5b2dd7c36)
 
-### Q7: Let's invite the artists who have written the most rock music in our dataset.Write a query that returns the Artist name and total track count of the top 10 rock bands.
+### Q7: Let's invite the artists who have written the most rock music in our dataset.Write a query that returns the Artist name and total track count of the top 5 rock bands.
            SELECT artist.artist_id, artist.name, count(artist.artist_id) as no_of_songs
            from track 
            join album on   album.album_id=track.album_id
@@ -103,24 +102,28 @@ Through this project, I honed my skills in data manipulation, interpretation, de
            where genre.name like 'rock'
            group by artist.artist_id
            order by no_of_songs desc
-           limit 10;
+           limit 5;	   
+### Result:
+![image](https://github.com/user-attachments/assets/716c9a89-d037-4cf8-8480-501dddce4d00)
 
 ### Q8: Return all the track names that have a song length longer than the average song length. Return the Name and Milliseconds for each track. Order by the song length with the longest songs listed first.
            select name, milliseconds
            from track 
            where milliseconds > (select avg(milliseconds) from track)
            order by milliseconds desc;
+### Result:
+![image](https://github.com/user-attachments/assets/a6d2ac54-32a9-49ae-b2f2-f166262f6d2a)
 
 ### Q9: Find how much amount spent by each customer on artists? Write a query to return customer name, artist name and total spent
            WITH best_selling_artist AS (
-	                                      SELECT artist.artist_id AS artist_id, artist.name AS artist_name, SUM(invoice_line.unit_price*invoice_line.quantity) AS total_sales
-	                                      FROM invoice_line
+	                                SELECT artist.artist_id AS artist_id, artist.name AS artist_name, SUM(invoice_line.unit_price*invoice_line.quantity) AS total_sales
+	                                FROM invoice_line
                                         JOIN track ON track.track_id = invoice_line.track_i
                                         JOIN album ON album.album_id = track.album_id 
                                         JOIN artist ON artist.artist_id = album.artist_id                               
-	                                      GROUP BY 1
-	                                      ORDER BY 3 DESC
-	                                      LIMIT 1
+	                                GROUP BY 1
+	                                ORDER BY 3 DESC
+	                                LIMIT 1
                                         )
                                         
            SELECT c.customer_id, c.first_name, c.last_name, bsa.artist_name, SUM(il.unit_price*il.quantity) AS amount_spent
