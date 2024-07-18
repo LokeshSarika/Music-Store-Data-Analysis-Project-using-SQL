@@ -157,21 +157,22 @@ Through this project, I honed my skills in data manipulation, interpretation, de
 
 ### Q11: Write a query that determines the customer that has spent the most on music for each country. Write a query that returns the country along with the top customer and how much they spent. For countries where the top amount spent is shared, provide all customers who spent this amount.
            with recursive customer_consume as (
-                                               select customer.country as country, customer.customer_id as c_id, customer.first_name as f_n,
-					       customer.last_name as l_n , sum(invoice.total) as total, row_number() over(partition by customer.country order by 
+                                               select customer.country as country, customer.customer_id, customer.first_name,
+					       customer.last_name, sum(invoice.total) as total_spent, row_number() over(partition by customer.country order by 
                                                sum(invoice.total) desc) as roll_num
                                                from customer
                                                join invoice on invoice.customer_id = customer.customer_id
-                                               group by c_id
+                                               group by customer_id
                                                order by sum(invoice.total) desc
                                                )
-          select country, c_id, f_n, l_n, total
+          select country, customer_id, first_name, last_name, total_spent
           from customer_consume
           where roll_num=1
-          order by c_id
+          order by customer_id
           ;
 ### Result:
-![image](https://github.com/user-attachments/assets/d46253a9-f7f4-447e-bf1e-c721ed1a9b53)
+![image](https://github.com/user-attachments/assets/2e62c8f3-bbd0-4303-84e3-f0bed10c2dcc)
+
 
 
 
